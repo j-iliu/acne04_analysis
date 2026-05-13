@@ -9,7 +9,7 @@ This project has two parts. Part 1 is acne lesion detection on ACNE04 using Fast
 
 ## Setup
 
-I developed and ran this on Kaggle with 2x T4 GPUs. Before running, you must input your Robloflow API Key.
+This was developed and ran on Kaggle with 2x T4 GPUs. Before running, you must input your Robloflow API Key.
 
 ```bash
 export ROBOFLOW_API_KEY="your_key_here"
