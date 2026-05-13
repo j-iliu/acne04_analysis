@@ -60,7 +60,7 @@ python train_stage1.py \
     --optimizer="AdamW"
 ```
 
-For the VGGFace2-pretrained variant I set the layer-4 learning rate to 0.1 of the inout learning rate to preserve more of the pretraining. To enable histogram matching, add `--use_histogram_matching`. If you use histogram matching for training, you must use it during inference. Patche created are cached upon first run to save time on later runs.
+For the VGGFace2-pretrained variant I set the layer-4 learning rate to 0.1 of the inout learning rate to preserve more of the pretraining. To enable histogram matching, add `--use_histogram_matching`. If you use histogram matching for training, you must use it during inference. Patches created are cached upon first run to save time on later runs.
 
 ### Stage 2 — hard-label threshold training
 
