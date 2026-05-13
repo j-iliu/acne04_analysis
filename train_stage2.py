@@ -1,13 +1,3 @@
-
-"""
-Usage:
-    python train_stage2_cached.py \
-        --model_path=/kaggle/input/.../mosaic_best_stage_1.pt \
-        --acne_ratio=0.08 \
-        --use_histogram \
-        --lr=0.01 --epochs=30
-"""
-
 import os
 import argparse
 import contextlib
