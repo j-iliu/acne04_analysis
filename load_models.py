@@ -13,7 +13,10 @@ def load_vggface2(model_name=None, stage2=False, model_path=None):
     from models.resnet import resnet50
     model=resnet50(num_classes=8631)
     
-    path = '/kaggle/input/models/jimmygliu/vggface2-resnet/pytorch/default/1/resnet50_ft_weight.pkl'
+    path = os.environ.get('VGGFACE_WEIGHT_PATH')
+    if not os.path.exists(path):
+        print(f"Please set environment variable: export VGGFACE_WEIGHT_PATH='/path/to/weights.pkl'")
+        print(f"download weights at https://drive.google.com/file/d/1A94PAAnwk6L7hXdBXLFosB_s0SzEhAFU/view")
     with open(path, 'rb') as f:
         weights_np = pickle.load(f,encoding='latin1')
     
