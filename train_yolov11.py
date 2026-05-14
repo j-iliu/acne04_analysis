@@ -33,7 +33,7 @@ if __name__ == "__main__":
      
     results = yolov11_model.train(
         data=f"{dataset.location}/data.yaml", 
-        epochs=args.epochs 
+        epochs=args.epochs,
         imgsz=640, 
         batch=args.batch_size,       
         patience=args.patience,
