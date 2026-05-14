@@ -1,0 +1,10 @@
+torch
+torchvision
+torchmetrics
+ultralytics
+roboflow
+scikit-learn
+matplotlib
+numpy
+pillow
+tqdm
