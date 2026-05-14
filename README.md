@@ -9,9 +9,11 @@ This project has two parts. Part 1 is acne lesion detection on ACNE04 using Fast
 
 ## Setup
 
-This project was created on Kaggle for 2x T4 GPUs. You must input your Roboflow API Key before running. 
+This project was created on Kaggle for 2x T4 GPUs. You must first install the required libraryies and input your Roboflow API Key before running. 
 
 ```bash
+!pip install ultralytics
+!pip install roboflow
 export ROBOFLOW_API_KEY="your_key_here"
 ```
 
