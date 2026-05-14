@@ -35,7 +35,7 @@ def evaluate_acne_model(model_path=None, stage2=True, model_name="chud", use_his
     else:
         print("Using base preprocessor")
 
-    _, _, test_ds = load_patches(stage2=True, acne_ratio=args.acne_ratio, jitter_on=not use_histogram)
+    _, _, test_ds = load_patches(stage2=True, jitter_on=not use_histogram)
 
     test_loader = DataLoader(test_ds, batch_size=32, shuffle=True, num_workers=2)
 
