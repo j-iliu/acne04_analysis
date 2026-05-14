@@ -188,7 +188,7 @@ def main():
             total += crit(log_probs, soft_lbls.to(device)).item() * imgs.size(0)
             n += imgs.size(0)
     print(f"stage-1 test KLDiv: {total / n:.4f}")
--
+
     cache_dir = "/kaggle/working"
     splits = {
         "train": ("/kaggle/working/train_patches.pt",

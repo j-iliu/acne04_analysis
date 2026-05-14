@@ -106,5 +106,8 @@ def load_patches(stage2=False, acne_ratio=0.5, jitter_on=True):
 def load(version: int):
     rf = Roboflow(api_key=os.environ["ROBOFLOW_API_KEY"])
     project = rf.workspace("jimmys-workspace-1ktw6").project("acne04-detection-i2hqg")
+    original_cwd = os.getcwd()
+    os.chdir("/kaggle/working")
     dataset = project.version(version).download("coco")
+    os.chdir(original_cwd)
     return dataset.location
