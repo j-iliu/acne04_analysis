@@ -4,12 +4,12 @@ This project has two parts. Part 1 is acne lesion detection on ACNE04 using Fast
 
 ## Datasets
 
-- **ACNE04** — 1450 facial images with bounding box annotations. Downloaded through the Roboflow API. Link: https://universe.roboflow.com/acne-vulgaris-detection/acne04-detection
+- **ACNE04** — 1450 facial images with bounding box annotations. Downloaded through the Roboflow API. Link: https://universe.roboflow.com/acne-vulgaris-detection/acne04-detection. This is automatically downloaded when running the training calls.
 - **DermNet** — over 20 skin condition classes used for cross-domain evaluation. I downloaded this through Kaggle, storing it at `/kaggle/input/datasets/shubhamgoel27/dermnet`. Link: https://www.kaggle.com/datasets/shubhamgoel27/dermnet
 
 ## Setup
 
-This project was created on Kaggle for 2x T4 GPUs. You must export you Roboflow API Key before running. 
+This project was created on Kaggle for 2x T4 GPUs. You must input your Roboflow API Key before running. 
 
 ```bash
 export ROBOFLOW_API_KEY="your_key_here"
