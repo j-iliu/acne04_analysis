@@ -57,7 +57,7 @@ def main(rank, world_size, args):
             )
         
         dist.barrier()
-        train_dl, val_dl, test_dl, derm_dl = distributed_classification_dl(batch_size=args.batch_size, stage2=False, jitter_on = not args.use_histogram_matching)
+        train_dl, val_dl, test_dl = distributed_classification_dl(batch_size=args.batch_size, stage2=False, jitter_on = not args.use_histogram_matching)
         trainer = Trainer(
             model=model,
             preprocessor=preprocessor,
