@@ -11,7 +11,7 @@ def load_vggface2(model_name=None, stage2=False, model_path=None):
 
     path = os.environ.get('VGGFACE_WEIGHT_PATH')
     if not os.path.exists(path):
-        print(f"Please set environment variable: os.environ["VGGFACE_WEIGHT_PATH"] ='/path/to/weights.pkl'")
+        print(f"Please set environment variable: os.environ['VGGFACE_WEIGHT_PATH'] ='/path/to/weights.pkl'")
         print(f"download weights at https://drive.google.com/file/d/1A94PAAnwk6L7hXdBXLFosB_s0SzEhAFU/view")
     sys.path.insert(0, path)
     from models.resnet import resnet50
