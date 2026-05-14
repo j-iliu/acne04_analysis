@@ -9,7 +9,7 @@ This project has two parts. Part 1 is acne lesion detection on ACNE04 using Fast
 
 ## Setup
 
-This was developed and ran on Kaggle with 2x T4 GPUs. Before running, you must input your Robloflow API Key.
+This project was created on Kaggle for 2x T4 GPUs. You must export you Roboflow API Key before running. 
 
 ```bash
 export ROBOFLOW_API_KEY="your_key_here"
@@ -19,10 +19,10 @@ export ROBOFLOW_API_KEY="your_key_here"
 
 ### Faster R-CNN
 
-I used a ResNet-50 + FPN backbone and shrunk the default anchors `(32, 64, 128, 256, 512)` by half to `(16, 32, 64, 128, 256)` because the lesion annotations had a mean size of ~40 pixels with a standard deviation of ~15. This is how to run the trainer:
+I used a ResNet-50 + FPN backbone and decreased the size of the default anchors `(32, 64, 128, 256, 512)` by half to `(16, 32, 64, 128, 256)` because the lesion annotations had a mean size of ~40 pixels with a standard deviation of ~15. This is how to run the trainer:
 
 ```bash
-python train_faster_rcnn.py \
+!python train_faster_rcnn.py \
     --name="SGD_faster_rcnn" \
     --optimizer="SGD" \
     --lr=0.001 \
@@ -36,7 +36,7 @@ This saves `SGD_faster_rcnn_best.pt` to `/kaggle/working`.
 
 ### YOLOv11n
 
-I trained YOLOv11n with the AdamW optimizer, default learning rate of 0.01 lowered to 0.001 with cosine annealing, for 75 epochs with mosaic turned off for the last 15. The YOLO cells live in the notebook (`acne04.ipynb`) since they use the Ultralytics API directly.
+I trained YOLOv11n with the AdamW optimizer, default learning rate of 0.01 lowered to 0.001 with cosine annealing, for 75 epochs with mosaic turned off for the last 15. 
 
 ### Evaluation
 
@@ -51,7 +51,7 @@ I trained this in two stages.
 Stage 1 trains the model to predict the acne fraction of a 4-tile mosaic as a soft label. This is how you run it:
 
 ```bash
-python train_stage1.py \
+!python train_stage1.py \
     --name="mosaic" \
     --batch_size=64 \
     --lr=0.001 \
