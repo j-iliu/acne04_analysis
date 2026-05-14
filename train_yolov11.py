@@ -16,11 +16,7 @@ def parse():
     return parser.parse_args()
 
 if __name__ == "__main__":
-    args = parse() 
-    save_patches(version=2)
-    world_size = torch.cuda.device_count()    
 
-    mp.spawn(main, args=(world_size, args), nprocs=world_size)
     yolov11_model = YOLO("yolo11n.pt")
     folder_path = "/kaggle/working/Acne04-Detection-2"
     
