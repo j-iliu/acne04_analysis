@@ -89,6 +89,17 @@ python train_stage2_cached.py \
 `--acne_ratio=0.5` is the default.
 `--use_histogram` enables histogram matching for training.
 
+## Evaluation
+
+Use the evaluate_acne_model to evaluate your model on Acne04 patches and DermNet images.
+
+```bash
+!python evaluate_acne_model.py --model_path=MODEL_PATH
+```
+`--stage1` flag for using a stage1 model. Default evaluation is on a stage 2 model.
+`--use_histogram_matching` enables histogram matching for evaluation. Must use if applied during training.
+
+
 ## Files
 
 ```

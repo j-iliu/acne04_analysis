@@ -101,9 +101,9 @@ def parse():
     parser.add_argument("--name", type=str, default=None)
     parser.add_argument("--model_path", type=str, default=None)
     parser.add_argument("--use_histogram_matching", action='store_true', default=False)
-    parser.add_argument("--stage2", action='store_true', default=True)
+    parser.add_argument("--stage1", action='store_true', default=True)
     return parser.parse_args()
 
 if __name__ == "__main__":
     args = parse() 
-    evaluate_acne_model(model_path=args.model_path, stage2=args.stage2, model_name=args.model_name, use_histogram=args.use_histogram_matching):
+    evaluate_acne_model(model_path=args.model_path, stage2=not args.stage1, model_name=args.model_name, use_histogram=args.use_histogram_matching):
