@@ -16,7 +16,7 @@ def parse():
     return parser.parse_args()
 
 if __name__ == "__main__":
-
+    args = parse()
     yolov11_model = YOLO("yolo11n.pt")
     folder_path = "/kaggle/working/Acne04-Detection-2"
     
