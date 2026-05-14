@@ -57,7 +57,7 @@ def main(rank, world_size, args):
             )
         
         dist.barrier()
-        train_dl, val_dl, test_dl, derm_dl = distributed_classification_dl(dermnet_dp, batch_size=args.batch_size, stage2=False, jitter_on = not args.use_histogram_matching)
+        train_dl, val_dl, test_dl, derm_dl = distributed_classification_dl(batch_size=args.batch_size, stage2=False, jitter_on = not args.use_histogram_matching)
         trainer = Trainer(
             model=model,
             preprocessor=preprocessor,
@@ -86,6 +86,7 @@ def main(rank, world_size, args):
 if __name__ == "__main__":
     args = parse() 
     save_patches(version=2)
+    load(version=2)
     world_size = torch.cuda.device_count()    
 
     mp.spawn(main, args=(world_size, args), nprocs=world_size)

@@ -7,23 +7,19 @@ from torchvision.datasets import CocoDetection
 from torchvision import transforms
 import torch.distributed as dist
 from classification_dataset import Acne04PatchDataset
-from domain_transfer_dataset import DermnetAcneDataset
 from torch.utils.data import Subset
 from roboflow import Roboflow
 
 _CURR_DIR = os.path.dirname(os.path.abspath(__file__)) 
 
-def distributed_classification_dl(dermnet_dp, acne_version=2, batch_size=2, stage2=False, acne_ratio=0.5, jitter_on=True):
+def distributed_classification_dl(acne_version=2, batch_size=2, stage2=False, acne_ratio=0.5, jitter_on=True):
 
     train_ds, val_ds, test_ds = load_patches(stage2=stage2, acne_ratio=acne_ratio, jitter_on=jitter_on)
-
-    dermnet_ds = DermnetAcneDataset(dermnet_dp)
 
     #train_ds = Subset(train_ds, range(100))
     #val_ds = Subset(val_ds, range(100))
     # test_ds = Subset(test_ds, range(4))
-    # dermnet_ds = Subset(dermnet_ds, range(4))
-
+    
     train_sampler = DistributedSampler(train_ds, shuffle=True,  drop_last=True)
     val_sampler   = DistributedSampler(val_ds,   shuffle=False, drop_last=False)
 
@@ -49,14 +45,8 @@ def distributed_classification_dl(dermnet_dp, acne_version=2, batch_size=2, stag
                     num_workers=2,
     )
 
-    dermnet_loader = DataLoader(
-                    dermnet_ds,
-                    batch_size=batch_size,
-                    shuffle=False,
-                    num_workers=2,
-    )
 
-    return cls_train_loader, cls_val_loader, cls_test_loader, dermnet_loader
+    return cls_train_loader, cls_val_loader, cls_test_loader
 
 def save_patches(version=2):
     
