@@ -125,7 +125,7 @@ class Trainer:
         ckp = self.model.module.state_dict()
         save_path = f"/kaggle/working/{self..name}_best.pt"
         if self.stage2:
-            save_path = f"/kaggle/working/{self..name}_last_stage_2.pt"
+            save_path = f"/kaggle/working/{self.name}_last_stage_2.pt"
         torch.save(ckp, save_nsave_pathame)
         print(f"{self.name} | saved last at {save_path}")
 
@@ -133,7 +133,7 @@ class Trainer:
         ckp = self.model.module.state_dict()
         save_path = f"/kaggle/working/{self..name}_best.pt"
         if self.stage2:
-            save_path = f"/kaggle/working/{self..name}_best_stage_2.pt"
+            save_path = f"/kaggle/working/{self.name}_best_stage_2.pt"
         torch.save(ckp, save_path)
         print(f"Epoch {epoch} new best saved at {save_path}")
 
