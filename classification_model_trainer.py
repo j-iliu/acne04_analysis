@@ -131,11 +131,11 @@ class Trainer:
 
     def save_best(self, epoch, val_loss):
         ckp = self.model.module.state_dict()
-        save_name = f"{self.name}_best_stage_1.pt"
+        save_path = f"/kaggle/working/{self..name}_best.pt"
         if self.stage2:
-            save_name = f"{self.name}_best_stage_2.pt"
-        torch.save(ckp, save_name)
-        print(f"Epoch {epoch} new best saved")
+            save_path = f"/kaggle/working/{self..name}_best_stage_2.pt"
+        torch.save(ckp, save_path)
+        print(f"Epoch {epoch} new best saved at {save_path}")
 
     def calculate_val_loss(self):
         self.model.eval()
