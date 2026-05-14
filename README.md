@@ -87,7 +87,7 @@ python train_stage2_cached.py \
 
 `--acne_ratio=0.08` trains on mosaics with 8% acne (to roughly match DermNet's acne prevalancy). 
 `--acne_ratio=0.5` is the default.
-`--use_histogram` enables histogram matching at both cache time and inference.
+`--use_histogram` enables histogram matching for training.
 
 ## Files
 
