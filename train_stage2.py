@@ -8,8 +8,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+from classification_loaders import load_patches
 
 os.environ.setdefault("ROBOFLOW_API_KEY", "***")
+_CURR_DIR = os.path.dirname(os.path.abspath(__file__))
 
 from load_models import load_resnet50, load_vggface2
 from classification_dataset import Acne04PatchDataset
@@ -56,17 +58,8 @@ def cache_features(model, preprocessor, device, split_name,
         return d["z"], d["y"]
 
     print(f"  [{split_name}] caching features -> {out_path}")
-    ds = Acne04PatchDataset(
-        None,
-        is_train=False,
-        mosaic=True,
-        stage2=True,
-        jitter_on=False,
-        acne_ratio=acne_ratio,
-        patches_cache=patches_cache,
-        patch_input=patch_input,
-    )
-    loader = DataLoader(ds, batch_size=batch_size, shuffle=False, num_workers=2)
+    _, _, test_stage1_ds = load_patches(stage2=False, acne_ratio=args.acne_ratio, jitter_on=False)
+    loader = DataLoader(test_stage1_ds, batch_size=256, shuffle=False, num_workers=2)
 
     feats, labels = [], []
     with torch.no_grad():
@@ -79,7 +72,7 @@ def cache_features(model, preprocessor, device, split_name,
     z = torch.cat(feats)
     y = torch.cat(labels)
     torch.save({"z": z, "y": y}, out_path)
-    print(f"  [{split_name}] saved {z.shape[0]} features (acne_frac={y.float().mean():.3f})")
+    print(f"  [{split_name}] saved {z.shape[0]} features (acne_ratio={y.float().mean():.3f})")
     return z, y
 
 
@@ -190,13 +183,14 @@ def main():
     print(f"stage-1 test KLDiv: {total / n:.4f}")
 
     cache_dir = "/kaggle/working"
+
     splits = {
         "train": ("/kaggle/working/train_patches.pt",
-                  "/kaggle/input/datasets/jiliu14/acne04-patches/train_patches.pt"),
+                os.path.join(_CURR_DIR, "train_patches.pt")),
         "val":   ("/kaggle/working/val_patches.pt",
-                  "/kaggle/input/datasets/jiliu14/acne04-patches/val_patches.pt"),
+                os.path.join(_CURR_DIR, "val_patches.pt")),
         "test":  ("/kaggle/working/test_patches.pt",
-                  "/kaggle/input/datasets/jiliu14/acne04-patches/test_patches.pt"),
+                os.path.join(_CURR_DIR, "test_patches.pt")),
     }
 
     cached = {}
