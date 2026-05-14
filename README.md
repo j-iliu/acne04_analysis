@@ -9,12 +9,14 @@ This project has two parts. Part 1 is acne lesion detection on ACNE04 using Fast
 
 ## Setup
 
-This project was created on Kaggle for 2x T4 GPUs. You must first clone the repo, install the required libraries, and input your Roboflow API Key before running. You must download the DermNet dataset linked above to use histogram matching and run evaluations.
+This project was created on Kaggle for 2x T4 GPUs. You must first clone the repo, install the required libraries, and input your Roboflow API Key before running. In order to use the vggface2 pretrained resnet, you must download the weights at https://drive.google.com/file/d/1A94PAAnwk6L7hXdBXLFosB_s0SzEhAFU/view and input the path below. You must also download the DermNet dataset linked above to use histogram matching and run evaluations.
 
 ```bash
 !git clone https://github.com/j-iliu/acne04_analysis.git
 %cd acne04_analysis
 !pip install -r requirements.txt
+os.environ["VGGFACE_WEIGHT_PATH"] ='/path/to/weights.pkl'
+os.environ["ROBOFLOW_API_KEY"] = "robloflow api key"
 ```
 
 ## Part 1 — Detection
