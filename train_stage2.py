@@ -11,10 +11,8 @@ from tqdm import tqdm
 from classification_loaders import load_patches
 
 os.environ.setdefault("ROBOFLOW_API_KEY", "***")
-_CURR_DIR = os.path.dirname(os.path.abspath(__file__))
 
 from load_models import load_resnet50, load_vggface2
-from classification_dataset import Acne04PatchDataset
 from classification_loaders import load
 from histogram_matching import build_histogram_preprocessor
 
@@ -49,17 +47,14 @@ def cache_key(args):
     return f"skew{args.acne_ratio}_hist{int(args.use_histogram)}"
 
 
-def cache_features(model, preprocessor, device, split_name,
-                   patches_cache, patch_input, acne_ratio,
-                   batch_size, out_path):
+def cache_features(model, preprocessor, device, split_name, ds, batch_size, out_path):
     if os.path.exists(out_path):
         print(f"  [{split_name}] loading cached features from {out_path}")
         d = torch.load(out_path)
         return d["z"], d["y"]
 
     print(f"  [{split_name}] caching features -> {out_path}")
-    _, _, test_stage1_ds = load_patches(stage2=False, acne_ratio=args.acne_ratio, jitter_on=False)
-    loader = DataLoader(test_stage1_ds, batch_size=256, shuffle=False, num_workers=2)
+    loader = DataLoader(ds, batch_size=batch_size, shuffle=False, num_workers=2)
 
     feats, labels = [], []
     with torch.no_grad():
@@ -165,12 +160,8 @@ def main():
     else:
         preprocessor = base_preprocessor
 
-    ds = Acne04PatchDataset(
-        None, is_train=False, mosaic=True, stage2=False, jitter_on=False,
-        patches_cache="/kaggle/working/test_patches.pt",
-        patch_input="/kaggle/input/datasets/jiliu14/acne04-patches/test_patches.pt",
-    )
-    loader = DataLoader(ds, batch_size=256, shuffle=False, num_workers=2)
+    _, _, test_soft_ds = load_patches(stage2=False, acne_ratio=args.acne_ratio, jitter_on=False)
+    loader = DataLoader(test_soft_ds, batch_size=256, shuffle=False, num_workers=2)
     crit = nn.KLDivLoss(reduction="batchmean")
     
     total, n = 0.0, 0
@@ -182,24 +173,16 @@ def main():
             n += imgs.size(0)
     print(f"stage-1 test KLDiv: {total / n:.4f}")
 
-    cache_dir = "/kaggle/working"
+    train_ds, val_ds, test_ds = load_patches(stage2=True, acne_ratio=args.acne_ratio, jitter_on=False)
 
-    splits = {
-        "train": ("/kaggle/working/train_patches.pt",
-                os.path.join(_CURR_DIR, "train_patches.pt")),
-        "val":   ("/kaggle/working/val_patches.pt",
-                os.path.join(_CURR_DIR, "val_patches.pt")),
-        "test":  ("/kaggle/working/test_patches.pt",
-                os.path.join(_CURR_DIR, "test_patches.pt")),
-    }
+    cache_dir = "/kaggle/working"
+    splits = {"train": train_ds, "val": val_ds, "test": test_ds}
 
     cached = {}
-    for split, (patches_cache, patch_input) in splits.items():
+    for split, ds in splits.items():
         out_path = f"{cache_dir}/cache_{ckey}_{split}.pt"
         cached[split] = cache_features(
-            model, preprocessor, device, split,
-            patches_cache, patch_input,
-            args.acne_ratio, args.cache_batch_size, out_path,
+            model, preprocessor, device, split, ds, args.cache_batch_size, out_path,
         )
 
     train_z, train_y = cached["train"]
