@@ -123,7 +123,7 @@ class Trainer:
 
     def save_last(self):
         ckp = self.model.module.state_dict()
-        save_path = f"/kaggle/working/{self..name}_best.pt"
+        save_path = f"/kaggle/working/{self.name}_best.pt"
         if self.stage2:
             save_path = f"/kaggle/working/{self.name}_last_stage_2.pt"
         torch.save(ckp, save_nsave_pathame)
