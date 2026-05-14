@@ -27,6 +27,8 @@ if __name__ == "__main__":
     project = rf.workspace("jimmys-workspace-1ktw6").project("acne04-detection-i2hqg")
     version = project.version(2)
     dataset = version.download("yolov11")
+
+    device = [0,1]
      
     results = yolov11_model.train(
         data=f"{dataset.location}/data.yaml", 
