@@ -89,11 +89,6 @@ python train_stage2_cached.py \
 `--acne_ratio=0.5` is the default.
 `--use_histogram` enables histogram matching at both cache time and inference.
 
-### Evaluation
-
-The `evaluate_acne_model` function (in the notebook) runs the full eval on ACNE04 test + DermNet (full, acne-only, non-acne) and prints accuracy, AUROC, AUPRC, and F1. Pass `model_path`, `stage2=True`, and `use_histogram=True/False` matching how the model was trained.
-
-
 ## Files
 
 ```
