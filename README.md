@@ -38,7 +38,15 @@ This saves `SGD_faster_rcnn_best.pt` to `/kaggle/working`.
 
 ### YOLOv11n
 
-I trained YOLOv11n with the AdamW optimizer, default learning rate of 0.01 lowered to 0.001 with cosine annealing, for 75 epochs with mosaic turned off for the last 15. 
+I trained YOLOv11n with the AdamW optimizer, default learning rate of 0.01 lowered to 0.001 with cosine annealing, for 75 epochs with mosaic turned off for the last 15. This is how to run the trainer:
+
+```bash
+!python train_yolov11.py \
+    --name="yolov11 \
+    --epochs=50 \
+    --batch_size=96 \
+    --patience=30
+```
 
 ### Evaluation
 
