@@ -35,13 +35,8 @@ def evaluate_acne_model(model_path=None, stage2=True, model_name="chud", use_his
     else:
         print("Using base preprocessor")
 
-    test_ds = Acne04PatchDataset(
-        None, is_train=False, mosaic=True,
-        patches_cache="/kaggle/working/test_patches.pt",
-        stage2=True,
-        patch_input="/kaggle/input/datasets/jiliu14/acne04-patches/test_patches.pt",
-        jitter_on= not use_histogram
-    )
+    _, _, test_ds = load_patches(stage2=True, acne_ratio=args.acne_ratio, jitter_on=not use_histogram)
+
     test_loader = DataLoader(test_ds, batch_size=32, shuffle=True, num_workers=2)
 
     acne_count   = sum(1 for i in range(len(test_ds)) if test_ds[i][1].item() == 1)
