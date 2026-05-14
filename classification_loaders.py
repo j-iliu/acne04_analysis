@@ -11,6 +11,8 @@ from domain_transfer_dataset import DermnetAcneDataset
 from torch.utils.data import Subset
 from roboflow import Roboflow
 
+_CURR_DIR = os.path.dirname(os.path.abspath(__file__)) 
+
 def distributed_classification_dl(dermnet_dp, acne_version=2, batch_size=2, stage2=False, acne_ratio=0.5, jitter_on=True):
 
     train_ds, val_ds, test_ds = load_patches(stage2=stage2, acne_ratio=acne_ratio, jitter_on=jitter_on)
@@ -92,9 +94,9 @@ def save_patches(version=2):
             val_source   = CocoDetection(root=val_data_path,   annFile=val_data_ann,   transform=transform)
             test_source  = CocoDetection(root=test_data_path,  annFile=test_data_ann,  transform=transform)
     
-    patch_input_train = "./train_patches"
-    patch_input_val = "./val_patches"
-    patch_input_test = "./test_patches"
+    patch_input_train = os.path.join(_CURR_DIR, "train_patches.pt")
+    patch_input_val = os.path.join(_CURR_DIR, "val_patches.pt")
+    patch_input_test = os.path.join(_CURR_DIR, "test_patches.pt")
 
     train_ds = Acne04PatchDataset(train_source, is_train=True, mosaic = True, patches_cache = "/kaggle/working/train_patches.pt", patch_input=patch_input_train)
     val_ds   = Acne04PatchDataset(val_source,   is_train=False, mosaic = True, patches_cache = "/kaggle/working/val_patches.pt", patch_input=patch_input_val)
@@ -102,9 +104,9 @@ def save_patches(version=2):
 
 def load_patches(stage2=False, acne_ratio=0.5, jitter_on=True):
     
-    patch_input_train = "./train_patches"
-    patch_input_val = "./val_patches"
-    patch_input_test = "./test_patches"
+    patch_input_train = os.path.join(_CURR_DIR, "train_patches.pt")
+    patch_input_val = os.path.join(_CURR_DIR, "val_patches.pt")
+    patch_input_test = os.path.join(_CURR_DIR, "test_patches.pt")
 
     train_ds = Acne04PatchDataset(None, is_train=True, mosaic = True, patches_cache = "/kaggle/working/train_patches.pt", patch_input=patch_input_train, stage2=stage2, acne_ratio=acne_ratio, jitter_on=jitter_on)
     val_ds   = Acne04PatchDataset(None,   is_train=False, mosaic = True, patches_cache = "/kaggle/working/val_patches.pt", patch_input=patch_input_val, stage2=stage2, acne_ratio=acne_ratio, jitter_on=False)
