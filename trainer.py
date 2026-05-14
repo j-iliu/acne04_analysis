@@ -36,8 +36,7 @@ class Trainer:
         self.val_loader = val_loader
         self.gpu_id = gpu_id
         self.save_every = save_every
-        self.model = model.to(gpu_id)
-        print(f"[rank {self.gpu_id}] after DDP wrap", flush=True)    
+        self.model = model.to(gpu_id) 
         self.model = DDP(self.model, device_ids=[self.gpu_id])
         self.name = name
         self.lr_scheduler = None
