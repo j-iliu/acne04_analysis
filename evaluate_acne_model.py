@@ -102,7 +102,7 @@ def parse():
     parser.add_argument("--name", type=str, default=None)
     parser.add_argument("--model_path", type=str, default=None)
     parser.add_argument("--use_histogram_matching", action='store_true', default=False)
-    parser.add_argument("--stage1", action='store_true', default=True)
+    parser.add_argument("--stage1", action='store_true', default=False)
     return parser.parse_args()
 
 if __name__ == "__main__":
