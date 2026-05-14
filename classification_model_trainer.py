@@ -126,7 +126,7 @@ class Trainer:
         save_path = f"/kaggle/working/{self.name}_best.pt"
         if self.stage2:
             save_path = f"/kaggle/working/{self.name}_last_stage_2.pt"
-        torch.save(ckp, save_nsave_pathame)
+        torch.save(ckp, save_path)
         print(f"{self.name} | saved last at {save_path}")
 
     def save_best(self, epoch, val_loss):
