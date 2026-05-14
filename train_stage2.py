@@ -218,8 +218,8 @@ def main():
     out_path = f"{cache_dir}/{name}_stage_2.pt"
     torch.save(full_state, out_path)
     print(f"\nsaved stage-2 checkpoint to {out_path}")
-    print(f"load via: evaluate_acne_model(model_path='{out_path}', stage2=True"
-          f"{', use_histogram=True' if args.use_histogram else ''})")
+    print(f"evaluate with: !python evaluate_acne_model.py --model_path='{out_path}'")
+          f"{',--use_histogram' if args.use_histogram else ''})")
 
 
 if __name__ == "__main__":

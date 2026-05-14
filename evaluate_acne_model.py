@@ -96,10 +96,10 @@ def parse():
     parser = argparse.ArgumentParser()
     parser.add_argument("--name", type=str, default=None)
     parser.add_argument("--model_path", type=str, default=None)
-    parser.add_argument("--use_histogram_matching", action='store_true', default=False)
+    parser.add_argument("--use_histogram", action='store_true', default=False)
     parser.add_argument("--stage1", action='store_true', default=False)
     return parser.parse_args()
 
 if __name__ == "__main__":
     args = parse() 
-    evaluate_acne_model(model_path=args.model_path, stage2=not args.stage1, model_name=args.name, use_histogram=args.use_histogram_matching)
+    evaluate_acne_model(model_path=args.model_path, stage2=not args.stage1, model_name=args.name, use_histogram=args.use_histogram)
