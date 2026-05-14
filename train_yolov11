@@ -3,6 +3,7 @@ from ultralytics import YOLO
 from roboflow import Roboflow
 import shutil
 import os
+import argparse
 
 
 def parse():
@@ -16,12 +17,10 @@ def parse():
 
 if __name__ == "__main__":
     args = parse() 
-    save_patches(version=2)
-    world_size = torch.cuda.device_count()    
-
-    mp.spawn(main, args=(world_size, args), nprocs=world_size)
     yolov11_model = YOLO("yolo11n.pt")
     folder_path = "/kaggle/working/Acne04-Detection-2"
+
+    device = [0,1]
     
     if os.path.exists(folder_path):
         shutil.rmtree(folder_path)
@@ -33,7 +32,7 @@ if __name__ == "__main__":
      
     results = yolov11_model.train(
         data=f"{dataset.location}/data.yaml", 
-        epochs=args.epochs 
+        epochs=args.epochs,
         imgsz=640, 
         batch=args.batch_size,       
         patience=args.patience,

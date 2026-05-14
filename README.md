@@ -9,7 +9,7 @@ This project has two parts. Part 1 is acne lesion detection on ACNE04 using Fast
 
 ## Setup
 
-This project was created on Kaggle for 2x T4 GPUs. You must first clone the repo, install the required libraries, and input your Roboflow API Key before running. 
+This project was created on Kaggle for 2x T4 GPUs. You must first clone the repo, install the required libraries, and input your Roboflow API Key before running. You must download the DermNet dataset linked above to use histogram matching and run evaluations.
 
 ```bash
 !git clone https://github.com/j-iliu/acne04_analysis.git
@@ -42,7 +42,7 @@ I trained YOLOv11n with the AdamW optimizer, default learning rate of 0.01 lower
 
 ```bash
 !python train_yolov11.py \
-    --name="yolov11 \
+    --name="yolov11" \
     --epochs=50 \
     --batch_size=96 \
     --patience=30
