@@ -92,19 +92,18 @@ python train_stage2_cached.py \
 ## Files
 
 ```
-train_faster_rcnn.py          # Part 1 Faster R-CNN training
-train_stage1.py               # Part 2 stage 1 training
-train_stage2_cached.py        # Part 2 stage 2 training (cached features)
-faster_rcnn_dataset.py        # ACNE04 detection dataset wrapper
-classification_dataset.py     # ACNE04 patch + mosaic dataset
-domain_transfer_dataset.py    # DermNet acne/non-acne dataset
-classification_loaders.py     # data loaders
+train_faster_rcnn.py             # Part 1 Faster R-CNN training
+train_stage1.py                  # Part 2 stage 1 training
+train_stage2_cached.py           # Part 2 stage 2 training (cached features)
+faster_rcnn_dataset.py           # ACNE04 detection dataset wrapper
+classification_dataset.py        # ACNE04 patch + mosaic dataset
+domain_transfer_dataset.py       # DermNet acne/non-acne dataset
+classification_loaders.py        # data loaders
 classification_model_trainer.py  # classification Trainer (DDP)
-trainer.py                    # detection Trainer (DDP)
-load_models.py                # ResNet-50 / VGGFace2 loading + stage-2 head
-evaluation.py                 # mAP / classification metrics
-histogram_matching.py         # histogram matcher + reference CDF builder
-acne04.ipynb                  # main notebook (Part 1 + Part 2 evals, visualizations)
+trainer.py                       # detection Trainer (DDP)
+load_models.py                   # ResNet-50 / VGGFace2 loading + stage-2 head
+evaluation.py                    # mAP / classification metrics
+histogram_matching.py            # histogram matcher + reference CDF builder
 ```
 
 ## Notes
