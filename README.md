@@ -56,7 +56,7 @@ To compute mAP and the precision-recall, run the cell at the bottom of the noteb
 
 ## Part 2 — Classification
 
-I trained this in two stages.
+I trained this in two stages. If you would like to use vggface2 pretrained weights, ensure that "vggface2" is in the model name during training and is in the string for the path for stage2 and evaluation.
 
 ### Stage 1 — soft-label mosaic training
 
