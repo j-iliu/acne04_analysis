@@ -1,3 +1,4 @@
+import argparse
 
 def evaluate_acne_model(model_path=None, stage2=True, model_name="chud", use_histogram=False):
     from load_models import load_resnet50, load_vggface2
@@ -106,4 +107,4 @@ def parse():
 
 if __name__ == "__main__":
     args = parse() 
-    evaluate_acne_model(model_path=args.model_path, stage2=not args.stage1, model_name=args.model_name, use_histogram=args.use_histogram_matching):
+    evaluate_acne_model(model_path=args.model_path, stage2=not args.stage1, model_name=args.model_name, use_histogram=args.use_histogram_matching)
