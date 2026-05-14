@@ -91,16 +91,24 @@ def save_patches(version=2):
             train_source = CocoDetection(root=train_data_path, annFile=train_data_ann, transform=transform)
             val_source   = CocoDetection(root=val_data_path,   annFile=val_data_ann,   transform=transform)
             test_source  = CocoDetection(root=test_data_path,  annFile=test_data_ann,  transform=transform)
+    
+    patch_input_train = "./train_patches"
+    patch_input_val = "./val_patches"
+    patch_input_test = "./test_patches"
 
-    train_ds = Acne04PatchDataset(train_source, is_train=True, mosaic = True, patches_cache = "/kaggle/working/train_patches.pt", patch_input="/kaggle/input/datasets/jiliu14/acne04-patches/train_patches.pt")
-    val_ds   = Acne04PatchDataset(val_source,   is_train=False, mosaic = True, patches_cache = "/kaggle/working/val_patches.pt", patch_input="/kaggle/input/datasets/jiliu14/acne04-patches/val_patches.pt")
-    test_ds  = Acne04PatchDataset(test_source,  is_train=False, mosaic = True, patches_cache = "/kaggle/working/test_patches.pt", patch_input="/kaggle/input/datasets/jiliu14/acne04-patches/test_patches.pt")
+    train_ds = Acne04PatchDataset(train_source, is_train=True, mosaic = True, patches_cache = "/kaggle/working/train_patches.pt", patch_input=patch_input_train)
+    val_ds   = Acne04PatchDataset(val_source,   is_train=False, mosaic = True, patches_cache = "/kaggle/working/val_patches.pt", patch_input=patch_input_val)
+    test_ds  = Acne04PatchDataset(test_source,  is_train=False, mosaic = True, patches_cache = "/kaggle/working/test_patches.pt", patch_input=patch_input_test)
 
 def load_patches(stage2=False, acne_ratio=0.5, jitter_on=True):
+    
+    patch_input_train = "./train_patches"
+    patch_input_val = "./val_patches"
+    patch_input_test = "./test_patches"
 
-    train_ds = Acne04PatchDataset(None, is_train=True, mosaic = True, patches_cache = "/kaggle/working/train_patches.pt", patch_input="/kaggle/input/datasets/jiliu14/acne04-patches/train_patches.pt", stage2=stage2, acne_ratio=acne_ratio, jitter_on=jitter_on)
-    val_ds   = Acne04PatchDataset(None,   is_train=False, mosaic = True, patches_cache = "/kaggle/working/val_patches.pt", patch_input="/kaggle/input/datasets/jiliu14/acne04-patches/val_patches.pt", stage2=stage2, acne_ratio=acne_ratio, jitter_on=False)
-    test_ds  = Acne04PatchDataset(None,  is_train=False, mosaic = True, patches_cache = "/kaggle/working/test_patches.pt", patch_input="/kaggle/input/datasets/jiliu14/acne04-patches/test_patches.pt",stage2=stage2, acne_ratio=acne_ratio, jitter_on=False)
+    train_ds = Acne04PatchDataset(None, is_train=True, mosaic = True, patches_cache = "/kaggle/working/train_patches.pt", patch_input=patch_input_train, stage2=stage2, acne_ratio=acne_ratio, jitter_on=jitter_on)
+    val_ds   = Acne04PatchDataset(None,   is_train=False, mosaic = True, patches_cache = "/kaggle/working/val_patches.pt", patch_input=patch_input_val, stage2=stage2, acne_ratio=acne_ratio, jitter_on=False)
+    test_ds  = Acne04PatchDataset(None,  is_train=False, mosaic = True, patches_cache = "/kaggle/working/test_patches.pt", patch_input=patch_input_test,stage2=stage2, acne_ratio=acne_ratio, jitter_on=False)
     return train_ds, val_ds, test_ds
     
 def load(version: int):
